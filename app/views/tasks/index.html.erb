@@ -1,7 +1,21 @@
-<h1>Task</h1>
+
+<h1>Task一覧</h1>
+<p><%= notice %></p>
+
 <table border="1" style="border-collapse: collapse">
   <tr>
     <th>Task名</th>
-    <th><%= link_to '詳細', tasks_show_path %></th>
+    <th>詳細</th>
   </tr>
+  <tr>
+  <% @tasks.each do |task| %>
+    <td><%= task.task_name %></td>
+    <td><%= task.details %></td>
+    <td><%= link_to '詳細', task_path(task.id) %></td>
+    <td><%= link_to '編集', edit_task_path(task.id) %></td>
+  </tr>
+  <% end %>
+  
 </table>
+
+<p><%= link_to 'Task作成', new_task_path %></p>

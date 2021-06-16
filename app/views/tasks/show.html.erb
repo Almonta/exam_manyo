@@ -1,2 +1,17 @@
 <h1>Task一覧</h1>
 
+<table border="1" style="border-collapse: collapse">
+  <tr>
+    <td>Task名</td>
+    <td>詳細</td>
+  </tr>
+  
+  <div>
+    <tr>
+      <td><%= @task.task_name %></td>
+      <td><%= @task.details %></td>
+    </tr>
+  </dev>
+</table>
+
+<%= link_to '一覧画面へ', tasks_path %>
