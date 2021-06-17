@@ -24,4 +24,5 @@
 
 # Label
 | カラム名 | データ型 |
+| ---- | ---- |
 | label_name | string |
