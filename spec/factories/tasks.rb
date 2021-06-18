@@ -1,7 +1,19 @@
 FactoryBot.define do
   factory :task do
-    # 下記の内容は実際に作成するカラム名に合わせて変更してください
-    task_name { 'manyo' }
-    details { 'manyokadai' }
+    trait :a do
+      id { 1 }
+      task_name { 'manyo' }
+      details { 'manyokadai' }
+    end
+    trait :b do
+      id { 2 }
+      task_name { 'monyo' }
+      details { 'monyokadai' }
+    end
+    trait :c do
+      id { 3 }
+      task_name { 'nonyo' }
+      details { 'nonyokadai' }
+    end
   end
 end
