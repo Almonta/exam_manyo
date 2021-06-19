@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            task_name:
+              blank: "が空欄です！"
+            details:
+              blank: "が空欄です！"
+    attributes:
+      task:
+        task_name: "Task名"
+        details: "詳細"
+  helpers:
+    submit:
+      create: 登録する
+      update: 更新する
+      submit: 保存する
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+
