@@ -32,14 +32,26 @@
 
 Rubyのバーション：2.6.5
 
-1. バージョン18を指定してherokuを作成する。  
-  % heroku create --remote heroku-18 --stack heroku-18
+1. herokuを作成する。  
+   % heroku create
 
-2. エラーが出るので  
-  % bundle lock --add-platform x86_64-linux
+2. アセットプリコンパイル
+   $ rails assets:precompile RAILS_ENV=production
 
-3. % git add .
+3. エラーが出るので  
+   % bundle lock --add-platform x86_64-linux
 
-4. % git commit -m "メッセージ"
+4. % git add .
 
-5. % git push heroku-18 step2:master
+5. % git commit -m "メッセージ"
+
+6. リモートリポジトリの参照先を追加
+   % git remote add heroku https://git.heroku.com/pacific-ravine-05590.git 
+
+7. % git push heroku-18 step2:master
+
+8. テーブルを作成する  
+   $ heroku run rails db:migrate
+
+9. アプリ名を確認  
+   % heroku config
