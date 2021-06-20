@@ -35,7 +35,6 @@ RSpec.describe 'タスク管理機能', type: :system do
     #     task = FactoryBot.create(:second_task)
         visit tasks_path
         task_list = all('.task_row')
-        binding.irb
         expect(task_list[0]). to have_content 'manyo'
         expect(task_list[2]). to have_content 'task_2'
         expect(task_list[3]). to have_content 'task_3'

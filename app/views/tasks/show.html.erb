@@ -4,14 +4,18 @@
   <tr>
     <td>Task名</td>
     <td>詳細</td>
+    <td>終了期限</td>
+    <td>作成日</td>
   </tr>
   
   <div>
     <tr>
       <td><%= @task.task_name %></td>
       <td><%= @task.details %></td>
+      <td><%= @task.deadline %></td>
+      <td><%= l @task.created_at %></td>
     </tr>
   </dev>
 </table>
 
-<%= link_to '一覧画面へ', tasks_path %>
+<p><%= link_to '一覧画面へ', tasks_path %></p>
