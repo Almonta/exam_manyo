@@ -3,7 +3,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
     create_table :tasks do |t|
       t.string :task_name, null: false
       t.text :details, null: false
-      t.date :deadline
+      t.date :deadline, null: false
       t.timestamps
     end
   end

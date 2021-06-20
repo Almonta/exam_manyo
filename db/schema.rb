@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_115201) do
   create_table "tasks", force: :cascade do |t|
     t.string "task_name", null: false
     t.text "details", null: false
-    t.date "deadline"
+    t.date "deadline", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
