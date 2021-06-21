@@ -6,6 +6,7 @@
     <td>詳細</td>
     <td>終了期限</td>
     <td>作成日</td>
+    <td>ステータス</td>
   </tr>
   
   <div>
@@ -14,6 +15,7 @@
       <td><%= @task.details %></td>
       <td><%= @task.deadline %></td>
       <td><%= l @task.created_at %></td>
+      <td><%= @task.status %></td>
     </tr>
   </dev>
 </table>
