@@ -16,14 +16,16 @@ class TasksController < ApplicationController
       #ステータスを追加する前
       # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
       # @tasks = Task.where("task_name LIKE ?" && "status", "%#{params[:search]}%", "%#{params[:status]}%")
-      @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
-                    .where(status: params[:status])
+      # @tasks = Task.where("task_name LIKE '%#{params[:search]}%'").where(status: params[:status])
+      @tasks = Task.search_task_name(params[:search]).search_status(params[:status])
     elsif params[:search].present? && params[:status] == ""
-      @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+      # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+      @tasks = Task.search_task_name(params[:search])
     elsif params[:search] == "" && params[:status] != ""
-      @tasks = Task.where(status: params[:status])
+      @tasks = Task.search_status(params[:status])
     else
-      @tasks = Task.all.order(created_at: :desc)
+      # @tasks = Task.all.order(created_at: :desc)
+      @tasks = Task.all.by_created_at
     end
   end
 
