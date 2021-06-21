@@ -8,11 +8,20 @@ class TasksController < ApplicationController
     # else
     #   @tasks = Task.all
     # end
-
+    
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: :desc)
-    elsif params[:search].present?
+    # elsif params[:search].present? && params[:status].present?
+    elsif params[:search].present? && params[:status] != ""
+      #ステータスを追加する前
+      # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+      # @tasks = Task.where("task_name LIKE ?" && "status", "%#{params[:search]}%", "%#{params[:status]}%")
       @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+                    .where(status: params[:status])
+    elsif params[:search].present? && params[:status] == ""
+      @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+    elsif params[:search] == "" && params[:status] != ""
+      @tasks = Task.where(status: params[:status])
     else
       @tasks = Task.all.order(created_at: :desc)
     end

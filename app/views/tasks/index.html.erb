@@ -5,11 +5,16 @@
 <%#= form_with url: tasks_path, method: :get, local: true do |s| %>
 <%= form_with url: tasks_path, method: :get, local: true do |s| %>
   <div class="search_field">
-    <%= s.label :search, 'タスク名検索' %><br>
+    <%= s.label :search, 'タスク名' %>
     <%= s.text_field :search %>
+    <%= s.label :status, 'ステータス' %>
+    <%#= s.select :status, Task.statuses.keys.to_a, {} %>
+    <%= s.select :status, options_for_select(Task.statuses.keys.to_a, {}), {include_blank: true} %>
+    <%#= s.select :status, Task.statuses.keys.to_a, include_blank: true %>
     <%= s.submit '検索' %>
   </div>
 <% end %>
+
 
 <p><%#= link_to "終了期限でソートする",tasks_path(sort_expired: "true") %>
 
