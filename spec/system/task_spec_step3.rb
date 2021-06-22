@@ -48,11 +48,14 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[1]). to have_content 'manyo'
       end
     end
-  #   context '終了期限が日付の降順に並んでいる場合' do
-  #     it '終了期限が一番先のタスクが一番上に表示される'
-  #       visit tasks_path
-  #       task_list = all()
-  #   end
+    context '終了期限が日付の降順に並んでいる場合' do
+      it '終了期限が一番先のタスクが一番上に表示される' do
+        visit tasks_path
+        deadline_list = all('.deadline_row')
+        expect(deadline_list[0]). to have_content '2022-07-23'
+        expect(deadline_list[1]). to have_content '2021-06-22'
+      end
+    end
   end
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
