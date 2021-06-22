@@ -22,6 +22,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'monyo'
         expect(page).to have_content '2021-06-22'
         expect(page).to have_content '2022-07-23'
+        expect(page).to have_content '着手中'
       end
     end
   end
@@ -51,6 +52,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限が日付の降順に並んでいる場合' do
       it '終了期限が一番先のタスクが一番上に表示される' do
         visit tasks_path
+        click_link '(ソート)'
         deadline_list = all('.deadline_row')
         expect(deadline_list[0]). to have_content '2022-07-23'
         expect(deadline_list[1]). to have_content '2021-06-22'
