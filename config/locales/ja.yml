@@ -8,6 +8,8 @@ ja:
               blank: "が空欄です！"
             details:
               blank: "が空欄です！"
+      messages:
+        record_invalid: "ActiveRecordエラー"
     attributes:
       task:
         task_name: "Task名"
