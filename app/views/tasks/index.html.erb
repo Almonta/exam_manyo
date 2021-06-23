@@ -32,7 +32,7 @@
     <td class="details_row" ><%= task.details %></td>
     <td class="deadline_row" ><%= task.deadline %></td>
     <td><%= l task.created_at %></td>
-    <td><%= task.status %></td>
+    <td class="status_row" ><%= task.status %></td>
     <td><%= link_to '詳細', task_path(task.id) %></td>
     <td><%= link_to '編集', edit_task_path(task.id) %></td>
     <td><%= link_to '削除', task_path(task.id), method: :delete %></td>
