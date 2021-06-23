@@ -35,15 +35,31 @@
     <td><%= l task.created_at %></td>
     <td class="status_row" ><%= task.status %></td>
     <td class="priority_row" ><%= task.priority %></td>
-    <td><%= link_to '詳細', task_path(task.id) %></td>
-    <td><%= link_to '編集', edit_task_path(task.id) %></td>
-    <td><%= link_to '削除', task_path(task.id), method: :delete %></td>
+    <td>
+      <%= link_to task_path(task.id) do %>
+      <span class="label label-primary">詳細</span>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to edit_task_path(task.id) do %>
+      <span class="label label-success">編集</span>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to task_path(task.id), method: :delete do %>
+      <span class="label label-danger">削除</span>
+      <% end %>
+    </td>
   </tr>
   <% end %>
   
 </table>
 
-<p><%= link_to 'Task作成', new_task_path %></p>
+<h4>
+  <%= link_to new_task_path do %>
+  <span class="label label-primary">Task登録</span>
+  <% end %>
+</h4>
 
 <%= paginate @tasks %>
 
