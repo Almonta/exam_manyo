@@ -29,6 +29,7 @@ class TasksController < ApplicationController
       # @tasks = Task.all.order(created_at: :desc)
       @tasks = Task.all.by_created_at
     end
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def show
