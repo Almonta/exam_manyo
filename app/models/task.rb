@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
-  validates :task_name, :details, :deadline, presence: true
+  # validates :task_name, :details, :deadline, presence: true
+  # deadlineのバリデーションを廃止した
+  validates :task_name, :details, presence: true
   # validates :details, presence: true
   enum status: { 未着手:1, 着手中:2, 完了:3 }
 

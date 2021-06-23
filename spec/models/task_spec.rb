@@ -6,6 +6,7 @@ describe 'タスクモデル機能', type: :model do
         task = Task.new(task_name: '', details: '失敗テスト')
         expect(task).not_to be_valid
         # expect(task).to be_falsey
+        expect(task.errors[:task_name]).to be_present
       end
     end
     context 'タスクの詳細が空の場合' do
@@ -13,6 +14,9 @@ describe 'タスクモデル機能', type: :model do
         # ここに内容を記載する
         task = Task.new(task_name: '失敗テスト', details: '')
         expect(task).not_to be_valid
+        expect(task.errors[:details]).to be_present
+        # xpathの方法でやってみたけどだめだった。
+        # expect(task(:xpath, '//*[@id="error_explanation"]/ul/li[2]/text()')).to be_present
       end
     end
     context 'タスクのタイトルと詳細に内容が記載されている場合' do
@@ -20,7 +24,7 @@ describe 'タスクモデル機能', type: :model do
         # ここに内容を記載する
         task = Task.new(task_name: '合格テスト', details: '合格テスト')
         # binding.irb
-        expect(task).not_to be_valid
+        expect(task).to be_valid
       end
     end
   end
@@ -48,3 +52,4 @@ describe 'タスクモデル機能', type: :model do
     end
   end
 end
+
