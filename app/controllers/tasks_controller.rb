@@ -12,6 +12,8 @@ class TasksController < ApplicationController
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: :desc)
     # elsif params[:search].present? && params[:status].present?
+    elsif params[:sort_priority]
+      @tasks = Task.all.order(priority: :desc)
     elsif params[:search].present? && params[:status] != ""
       #ステータスを追加する前
       # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
