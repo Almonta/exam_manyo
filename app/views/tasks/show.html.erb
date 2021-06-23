@@ -1,17 +1,25 @@
-<h1>Task一覧</h1>
+<h1>Task詳細</h1>
 
 <table border="1" style="border-collapse: collapse">
   <tr>
     <td>Task名</td>
     <td>詳細</td>
+    <td>終了期限</td>
+    <td>作成日</td>
+    <td>ステータス</td>
   </tr>
   
   <div>
     <tr>
       <td><%= @task.task_name %></td>
       <td><%= @task.details %></td>
+      <td><%= @task.deadline %></td>
+      <td><%= l @task.created_at %></td>
+      <td><%= @task.status %></td>
+      <td><%= @task.priority %></td>
+
     </tr>
   </dev>
 </table>
 
-<%= link_to '一覧画面へ', tasks_path %>
+<p><%= link_to '一覧画面へ', tasks_path %></p>

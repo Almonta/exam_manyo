@@ -18,7 +18,21 @@
   <%= form.label :details, '詳細' %><br>
   <%= form.text_field :details %>
 </div>
+<div class="deadline">
+  <%= form.label :deadline, '終了期限' %><br>
+  <%= form.date_select :deadline %>
+</div>
+<div class="status">
+  <%= form.label :status, 'ステータス' %><br>
+  <%= form.select :status, Task.statuses.keys.to_a, {} %>
+</div>
+<div class="priority">
+  <%= form.label :priority, '優先度' %><br>
+  <%= form.select :priority, Task.priorities.keys.to_a, {} %>
+</div>
 
-<%= form.submit %>
+<p><%= form.submit %></p>
+
+<p><%= link_to "戻る", tasks_path %></p>
 
 <% end %>

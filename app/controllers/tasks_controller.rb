@@ -2,7 +2,34 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    #@tasks = Task.all.order(created_at: :desc)
+    # if params[:search].present?
+    #   @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+    # else
+    #   @tasks = Task.all
+    # end
+    
+    if params[:sort_expired]
+      @tasks = Task.all.order(deadline: :desc)
+    # elsif params[:search].present? && params[:status].present?
+    elsif params[:sort_priority]
+      @tasks = Task.all.order(priority: :asc)
+    elsif params[:search].present? && params[:status] != ""
+      #ステータスを追加する前
+      # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+      # @tasks = Task.where("task_name LIKE ?" && "status", "%#{params[:search]}%", "%#{params[:status]}%")
+      # @tasks = Task.where("task_name LIKE '%#{params[:search]}%'").where(status: params[:status])
+      @tasks = Task.search_task_name(params[:search]).search_status(params[:status])
+    elsif params[:search].present? && params[:status] == ""
+      # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
+      @tasks = Task.search_task_name(params[:search])
+    elsif params[:search] == "" && params[:status] != ""
+      @tasks = Task.search_status(params[:status])
+    else
+      # @tasks = Task.all.order(created_at: :desc)
+      @tasks = Task.all.by_created_at
+    end
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def show
@@ -44,11 +71,12 @@ class TasksController < ApplicationController
   end
 
   private
+
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :details)
+    params.require(:task).permit(:task_name, :details, :deadline, :status, :priority)
   end
 end
