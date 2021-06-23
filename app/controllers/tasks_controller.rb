@@ -13,7 +13,7 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(deadline: :desc)
     # elsif params[:search].present? && params[:status].present?
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :desc)
+      @tasks = Task.all.order(priority: :asc)
     elsif params[:search].present? && params[:status] != ""
       #ステータスを追加する前
       # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
