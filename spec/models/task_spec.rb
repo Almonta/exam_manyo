@@ -5,6 +5,7 @@ describe 'タスクモデル機能', type: :model do
       it 'バリデーションにひっかる' do
         task = Task.new(task_name: '', details: '失敗テスト')
         expect(task).not_to be_valid
+        # expect(task).to be_falsey
       end
     end
     context 'タスクの詳細が空の場合' do
@@ -18,7 +19,31 @@ describe 'タスクモデル機能', type: :model do
       it 'バリデーションが通る' do
         # ここに内容を記載する
         task = Task.new(task_name: '合格テスト', details: '合格テスト')
-        expect(task).to be_valid
+        # binding.irb
+        expect(task).not_to be_valid
+      end
+    end
+  end
+  describe '検索機能' do
+    # 必要に応じて、テストデータの内容を変更して構わない
+    let!(:task) { FactoryBot.create(:task, task_name: 'task') }
+    let!(:second_task) { FactoryBot.create(:second_task, task_name: "sample") }
+    context 'scopeメソッドでタイトルのあいまい検索をした場合' do
+      it "検索キーワードを含むタスクが絞り込まれる" do
+        # title_seachはscopeで提示したタイトル検索用メソッドである。メソッド名は任意で構わない。
+        expect(Task.search_task_name('task')).to include(task)
+        expect(Task.search_task_name('task')).not_to include(second_task)
+        expect(Task.search_task_name('task').count).to eq 1
+      end
+    end
+    context 'scopeメソッドでステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        # ここに内容を記載する
+      end
+    end
+    context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        # ここに内容を記載する
       end
     end
   end

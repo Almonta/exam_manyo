@@ -107,7 +107,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         expect(page).to have_content 'manyo'
         expect(page).to have_selector '.status_row', text: '着手中'
-        expect(page).to_not have_selector '.status_row', text: '未着手'
+        expect(page).not_to have_selector '.status_row', text: '未着手'
       end
     end
   end
