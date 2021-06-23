@@ -13,10 +13,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task_task_name', with: 'manyo'
         fill_in 'task_details', with: 'manyokadai'
-        select '2021', from: 'task_deadline_1i'
+        select '2021', from: 'task[deadline(1i)]'#'task_deadline_1i'
         select '6月', from: 'task_deadline_2i'
         select '22', from: 'task_deadline_3i'
-        select '着手中', from: 'task_status'
+        select '着手中', from: 'task[status]'
         click_on '登録する'
         expect(page).to have_content 'manyo'
         expect(page).to have_content 'monyo'
@@ -83,12 +83,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 検索ボタンを押す
         click_on '検索'
         expect(page).to have_content 'manyo'
+        expect(page).to_not have_content 'monyo'
       end
     end
     context 'ステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         # ここに実装する
+        # visit tasks_path
         # プルダウンを選択する「select」について調べてみること
+        # fill_in 'search', with: ''
         select '着手中', from: 'status'
         click_on '検索'
         expect(page).to have_selector '.status_row', text: '着手中'
@@ -98,6 +101,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
         # ここに実装する
+        # visit tasks_path
         fill_in 'search', with: 'ma'
         select '着手中', from: 'status'
         click_on '検索'
