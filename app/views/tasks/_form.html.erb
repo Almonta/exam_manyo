@@ -26,6 +26,10 @@
   <%= form.label :status, 'ステータス' %><br>
   <%= form.select :status, Task.statuses.keys.to_a, {} %>
 </div>
+<div class="priority">
+  <%= form.label :priority, '優先度' %><br>
+  <%= form.select :priority, Task.priorities.keys.to_a, {} %>
+</div>
 
 <p><%= form.submit %></p>
 
