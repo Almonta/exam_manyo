@@ -1,0 +1,36 @@
+<h2>管理画面</h2>
+<h3>登録ユーザ一覧</h3>
+
+<h4>
+  <%= link_to admin_new_user_path do %>
+  <span class="label label-primary">新規ユーザー登録</span>
+  <% end %>
+</h4>
+
+<table border="1" style="border-collapse: collapse">
+  <tr>
+    <th>ユーザ名</th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td class="task_row" ><%= user.name %></td>
+
+    <td>
+      <%= link_to admin_user_path(user.id) do %>
+      <span class="label label-primary">詳細</span>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to edit_admin_user_path(user.id) do %>
+      <span class="label label-success">編集</span>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to admin_user_path(user.id), method: :delete do %>
+      <span class="label label-danger">削除</span>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>

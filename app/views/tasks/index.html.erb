@@ -16,6 +16,12 @@
 <% end %>
 
 
+<h4>
+  <%= link_to new_task_path do %>
+  <span class="label label-primary">Task登録</span>
+  <% end %>
+</h4>
+
 <p><%#= link_to "終了期限でソートする",tasks_path(sort_expired: "true") %>
 
 <table border="1" style="border-collapse: collapse">
@@ -55,14 +61,7 @@
     </tr>
     <%# end %>
   <% end %>
-
 </table>
-
-<h4>
-  <%= link_to new_task_path do %>
-  <span class="label label-primary">Task登録</span>
-  <% end %>
-</h4>
 
 <%= paginate @tasks %>
 
