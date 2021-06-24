@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :current_user, only: %i[ edit update destroy ]
+  # skip_before_action :login_required, only: [:new, :create]
 
   def index
     #@tasks = Task.all.order(created_at: :desc)
@@ -9,25 +11,27 @@ class TasksController < ApplicationController
     #   @tasks = Task.all
     # end
     
+    @tasks = current_user.tasks
     if params[:sort_expired]
-      @tasks = Task.all.order(deadline: :desc)
+      # @tasks = Task.all.order(deadline: :desc)
+      @tasks = @tasks.order(deadline: :desc)
     # elsif params[:search].present? && params[:status].present?
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :asc)
+      @tasks = @tasks.order(priority: :asc)
     elsif params[:search].present? && params[:status] != ""
       #ステータスを追加する前
       # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
       # @tasks = Task.where("task_name LIKE ?" && "status", "%#{params[:search]}%", "%#{params[:status]}%")
       # @tasks = Task.where("task_name LIKE '%#{params[:search]}%'").where(status: params[:status])
-      @tasks = Task.search_task_name(params[:search]).search_status(params[:status])
+      @tasks = @tasks.search_task_name(params[:search]).search_status(params[:status])
     elsif params[:search].present? && params[:status] == ""
       # @tasks = Task.where("task_name LIKE ?", "%#{params[:search]}%")
-      @tasks = Task.search_task_name(params[:search])
+      @tasks = @tasks.search_task_name(params[:search])
     elsif params[:search] == "" && params[:status] != ""
-      @tasks = Task.search_status(params[:status])
+      @tasks = @tasks.search_status(params[:status])
     else
       # @tasks = Task.all.order(created_at: :desc)
-      @tasks = Task.all.by_created_at
+      @tasks = @tasks.by_created_at
     end
     @tasks = @tasks.page(params[:page]).per(5)
   end
@@ -45,7 +49,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    # @task = Task.new(task_params)
+    # @task.user_id = current_user.id
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else

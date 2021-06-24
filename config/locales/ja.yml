@@ -8,6 +8,8 @@ ja:
               blank: "が空欄です！"
             details:
               blank: "が空欄です！"
+            user:
+              required: "が必要です！"
       messages:
         record_invalid: "ActiveRecordエラー"
     attributes:
