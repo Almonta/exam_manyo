@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     # else
     #   @tasks = Task.all
     # end
-    
+    @user = current_user
     @tasks = current_user.tasks
     if params[:sort_expired]
       # @tasks = Task.all.order(deadline: :desc)
