@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   before_action :current_user, only: %i[ edit update destroy ]
-  # skip_before_action :login_required, only: [:new, :create]
+  # skip_before_action :login_required, only: [:new,s :create]
 
   def index
     #@tasks = Task.all.order(created_at: :desc)
