@@ -2,29 +2,30 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   # before { user = FactoryBot.create(:user) }
   let!(:user) { FactoryBot.create(:user) }
+  # user = FactoryBot.create(:user)
   # let!(:task) { FactoryBot.create(:task) }
-  let!(:task) { FactoryBot.create(:task, user: user) }
+  let!(:task) { FactoryBot.create(:task, user_id: user.id) }
   # let!(:second_task) { FactoryBot.create(:second_task) }
-  let!(:second_task) { FactoryBot.create(:second_task, user: user) }
-  let!(:third_task) { FactoryBot.create(:third_task, user: user) }
-  before do
-    # @task = FactoryBot.create(:task)
-    # FactoryBot.create(:second_task)
-    # visit new_session_path
-    # fill_in 'session_email', with: '88@88'
-    # fill_in 'session_password', with: '88'
-    # click_on 'Log in'
-    # /html/body/form/input[5]
-    # user = FactoryBot.create(:user)
-    # tast_login
-  end
-
+  let!(:second_task) { FactoryBot.create(:second_task, user_id: user.id) }
+  let!(:third_task) { FactoryBot.create(:third_task, user_id: user.id) }
   def test_login
-    visit new_session_path
     fill_in 'session_email', with: 'test_user1@sample.com'
     fill_in 'session_password', with: 'pass1'
     click_on 'Log in'
+    # visit new_session_path
   end
+  before do
+    # @task = FactoryBot.create(:task)
+    # FactoryBot.create(:second_task)
+    visit new_session_path
+    # fill_in 'session_email', with: 'test_user1@sample.com'
+    # fill_in 'session_password', with: 'pass1'
+    # click_on 'Log in'
+    # /html/body/form/input[5]
+    # user = FactoryBot.create(:user)
+    # tast_login #ここに書いても遅延だからログインできない
+  end
+
 
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
@@ -79,7 +80,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限が日付の降順に並んでいる場合' do
       it '終了期限が一番先のタスクが一番上に表示される' do
         # visit tasks_path
-        click_link '(ソート)'
+        # click_link '(ソート)'
+        deadline_sort_link = find(:xpath, "/html/body/div/table/tbody/tr[1]/th[3]/a")
+        deadline_sort_link.click
         sleep 0.2
         deadline_list = all('.deadline_row')
         expect(deadline_list[0]). to have_content '2023-08-24'
@@ -90,9 +93,13 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '優先順位が高い順に並んでいる場合' do
       it '優先順位が高のタスクが一番上に表示される' do
         # visit tasks_path
-        click_link '(sort)'
+        # binding.irb
+        # click_link '(sort)'
+        deadline_sort_link = find(:xpath, "/html/body/div/table/tbody/tr[1]/th[6]/a")
+        deadline_sort_link.click
         sleep 0.2
         priority_list = all('.priority_row')
+        # binding.irb
         expect(priority_list[0]). to have_content '高'
         expect(priority_list[1]). to have_content '中'
         expect(priority_list[2]). to have_content '低'
@@ -125,7 +132,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         # タスクの検索欄に検索ワードを入力する (例: task)
         fill_in 'search', with: 'k1'
         # 検索ボタンを押す
-        click_on '検索'
+        # click_on '検索'
+        
+        search_link = find(:xpath, "/html/body/form/div/input[2]")
+        search_link.click
+
+        # binding.irb
         expect(page).to have_content 'test_task1'
         expect(page).to_not have_content 'test_task2'
       end

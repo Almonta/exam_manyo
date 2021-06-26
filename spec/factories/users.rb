@@ -4,6 +4,7 @@ FactoryBot.define do
     email { 'test_user1@sample.com' }
     password { 'pass1' }
     password_confirmation { 'pass1' }
+    # password_digest { 'pass1' }
     admin { 'true' }
     # association :tasks
   end
@@ -12,6 +13,7 @@ FactoryBot.define do
     email { 'test_user2@sample.com' }
     password { 'pass2' }
     password_confirmation { 'pass2' }
+    # password_digest { 'pass1' }
     admin { 'false' }
     # association :tasks
   end

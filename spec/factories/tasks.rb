@@ -15,7 +15,7 @@ FactoryBot.define do
     deadline { '2022-07-23' }
     status { '着手中' }
     priority { '中' }
-    association :user
+    # association :user
   end
 
   factory :third_task, class: Task do
@@ -24,7 +24,7 @@ FactoryBot.define do
     deadline { '2023-08-24' }
     status { '未着手' }
     priority { '低' }
-    association :user
+    # association :user
   end
 
 end
