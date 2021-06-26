@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 100.times do |n|
-  name = "サンプル#{n + 1}さん"
+  name = "サンプル#{n + 1}"
   email = "sample#{n + 1}@sample.com"
   password = "password#{n + 1}"
   User.create!(name: name,

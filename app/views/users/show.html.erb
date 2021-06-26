@@ -4,6 +4,10 @@
 
 <h3>作成タスク一覧</h3>
 
+<% if current_user.admin? && (current_user == @user) %>
+  <%= link_to "管理者画面へ", admin_users_path %>
+<% end %>
+
 <table border="1" style="border-collapse: collapse">
   <tr>
     <th>Task名</th>
