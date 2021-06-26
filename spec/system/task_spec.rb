@@ -4,16 +4,14 @@ RSpec.describe 'タスク管理機能', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   # user = FactoryBot.create(:user)
   # let!(:task) { FactoryBot.create(:task) }
-  let!(:task) { FactoryBot.create(:task, user_id: user.id) }
+  let!(:task) { FactoryBot.create(:task, user: user) }
+  # let!(:task) { FactoryBot.create(:task, user_id: user.id) }
   # let!(:second_task) { FactoryBot.create(:second_task) }
-  let!(:second_task) { FactoryBot.create(:second_task, user_id: user.id) }
-  let!(:third_task) { FactoryBot.create(:third_task, user_id: user.id) }
-  def test_login
-    fill_in 'session_email', with: 'test_user1@sample.com'
-    fill_in 'session_password', with: 'pass1'
-    click_on 'Log in'
-    # visit new_session_path
-  end
+  let!(:second_task) { FactoryBot.create(:second_task, user: user) }
+  # let!(:second_task) { FactoryBot.create(:second_task, user_id: user.id) }
+  # let!(:third_task) { FactoryBot.create(:third_task) }
+  let!(:third_task) { FactoryBot.create(:third_task, user: user) }
+  # let!(:third_task) { FactoryBot.create(:third_task, user_id: user.id) }
   before do
     # @task = FactoryBot.create(:task)
     # FactoryBot.create(:second_task)
@@ -24,6 +22,12 @@ RSpec.describe 'タスク管理機能', type: :system do
     # /html/body/form/input[5]
     # user = FactoryBot.create(:user)
     # tast_login #ここに書いても遅延だからログインできない
+  end
+  def test_login
+    fill_in 'session_email', with: 'test_user1@sample.com'
+    fill_in 'session_password', with: 'pass1'
+    click_on 'Log in'
+    # visit new_session_path
   end
 
 
