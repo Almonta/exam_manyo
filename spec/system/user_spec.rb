@@ -22,12 +22,24 @@ RSpec.describe 'ログイン機能', type: :system do
         fill_in 'user_email', with: 'test_email1@sample.com'
         fill_in 'user_password', with: 'test_password1'
         fill_in 'user_password_confirmation', with: 'test_password1'
-        click_on 'Create my account'
+        # binding.irb
+        # click_on 'Create my account'
+        # click_on find(:xpath, '/html/body/form/input[6]').click
+        find(:xpath, '/html/body/form/input[6]').click
+        # create = find(:xpath, '/html/body/form/input[6]')
+        # create.click
+        # /html/body/form/input[6]
         # test_login
         # visit user_path(user.id)
-        # binding.irb
         expect(page).to have_content 'test_name1'
         expect(page).to have_content 'test_email1@sample.com'
+      end
+    end
+    context 'ユーザがログインせずタスク一覧画面に飛ぼうとしたとき' do
+      it '作成したユーザが表示される' do
+        visit tasks_path
+        # binding.irb
+        expect(page).to have_content 'Log in'
       end
     end
   end
