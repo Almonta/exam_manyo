@@ -124,7 +124,16 @@ RSpec.describe 'ログイン機能', type: :system do
           expect(page).to have_selector '.name_row', text: 'test_name1'
         end
       end
-
+      context '管理ユーザがユーザの詳細画面にアクセスした場合' do
+        it "ユーザの詳細画面が表示される" do
+          visit new_session_path
+          admin_login
+          click_link '管理者画面へ'
+          visit admin_user_path(user.id)
+          expect(page).to have_content '詳細'
+          expect(current_path).to eq admin_user_path(user.id)
+        end
+      end
     end
 
   end
