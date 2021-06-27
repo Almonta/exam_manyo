@@ -1,0 +1,46 @@
+
+<h3><%= @user.name %>マイページ</h3>
+<p>メールアドレス: <%= @user.email %></p>
+
+<h3>作成タスク一覧</h3>
+
+<% if current_user.admin? && (current_user == @user) %>
+  <%= link_to "管理者画面へ", admin_users_path %>
+<% end %>
+
+<table border="1" style="border-collapse: collapse">
+  <tr>
+    <th>Task名</th>
+    <th>詳細</th>
+    <th>終了期限</th>
+    <th>作成日</th>
+    <th>ステータス</th>
+    <th>優先度</th>
+  </tr>
+
+  <% @tasks.each do |task| %>
+    <tr>
+      <td class="task_row" ><%= task.task_name %></td>
+      <td class="details_row" ><%= task.details %></td>
+      <td class="deadline_row" ><%= task.deadline %></td>
+      <td><%= l task.created_at %></td>
+      <td class="status_row" ><%= task.status %></td>
+      <td class="priority_row" ><%= task.priority %></td>
+      <td>
+        <%= link_to task_path(task.id) do %>
+        <span class="label label-primary">詳細</span>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_task_path(task.id) do %>
+        <span class="label label-success">編集</span>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to task_path(task.id), method: :delete do %>
+        <span class="label label-danger">削除</span>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

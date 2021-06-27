@@ -1,12 +1,14 @@
 
 <h2>Task一覧</h2>
-<p><%= notice %></p>
+<p><%#= notice %></p>
+
+<h3><%= @user.name %>のTask</h3>
 
 <%#= form_with url: tasks_path, method: :get, local: true do |s| %>
 <%= form_with url: tasks_path, method: :get, local: true do |s| %>
   <div class="search_field">
     <%= s.label :search, 'タスク名' %>
-    <%= s.text_field :search %>
+    <%= s.text_field :search, placeholder: "何探しますか?" %>
     <%= s.label :status, 'ステータス' %>
     <%#= s.select :status, Task.statuses.keys.to_a, {} %>
     <%= s.select :status, options_for_select(Task.statuses.keys.to_a, {}), {include_blank: true} %>
@@ -16,50 +18,65 @@
 <% end %>
 
 
-<p><%#= link_to "終了期限でソートする",tasks_path(sort_expired: "true") %>
-
-<table border="1" style="border-collapse: collapse">
-  <tr>
-    <th>Task名</th>
-    <th>詳細</th>
-    <th>終了期限<%= link_to "(ソート)",tasks_path(sort_expired: "true") %></th>
-    <th>作成日</th>
-    <th>ステータス</th>
-    <th>優先度<%= link_to "(sort)",tasks_path(sort_priority: "true") %></th>
-  </tr>
-  <tr>
-  <% @tasks.each do |task| %>
-    <td class="task_row" ><%= task.task_name %></td>
-    <td class="details_row" ><%= task.details %></td>
-    <td class="deadline_row" ><%= task.deadline %></td>
-    <td><%= l task.created_at %></td>
-    <td class="status_row" ><%= task.status %></td>
-    <td class="priority_row" ><%= task.priority %></td>
-    <td>
-      <%= link_to task_path(task.id) do %>
-      <span class="label label-primary">詳細</span>
-      <% end %>
-    </td>
-    <td>
-      <%= link_to edit_task_path(task.id) do %>
-      <span class="label label-success">編集</span>
-      <% end %>
-    </td>
-    <td>
-      <%= link_to task_path(task.id), method: :delete do %>
-      <span class="label label-danger">削除</span>
-      <% end %>
-    </td>
-  </tr>
-  <% end %>
-  
-</table>
-
 <h4>
+  &nbsp;
   <%= link_to new_task_path do %>
   <span class="label label-primary">Task登録</span>
   <% end %>
 </h4>
+
+<p><%#= link_to "終了期限でソートする",tasks_path(sort_expired: "true") %>
+
+<div class="container-fluid">
+  <table class="table">
+    <tr>
+      <th>Task名</th>
+      <th>詳細</th>
+      <th>終了期限
+        <%= link_to tasks_path(sort_expired: "true") do %>
+        <i class="fas fa-sort"></i>
+        <% end %>
+      </th>
+      <th>作成日</th>
+      <th>ステータス</th>
+      <th>優先度
+        <%= link_to tasks_path(sort_priority: "true") do %>
+        <i class="fas fa-sort"></i>
+      <% end %>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <%# if task.user.name == current_user.name %>
+      <% @tasks.each do |task| %>
+      <tr>
+        <td class="task_row" ><%= task.task_name %></td>
+        <td class="details_row" ><%= task.details %></td>
+        <td class="deadline_row" ><%= task.deadline %></td>
+        <td><%= l task.created_at %></td>
+        <td class="status_row" ><%= task.status %></td>
+        <td class="priority_row" ><%= task.priority %></td>
+        <td>
+          <%= link_to task_path(task.id) do %>
+          <span class="label label-primary">詳細</span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_task_path(task.id) do %>
+          <span class="label label-success">編集</span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to task_path(task.id), method: :delete do %>
+          <span class="label label-danger">削除</span>
+          <% end %>
+        </td>
+      </tr>
+      <%# end %>
+    <% end %>
+  </table>
+</div>
 
 <%= paginate @tasks %>
 

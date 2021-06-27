@@ -8,6 +8,12 @@ ja:
               blank: "が空欄です！"
             details:
               blank: "が空欄です！"
+            user:
+              required: "が必要です！"
+        user:
+          attributes:
+            email:
+              taken: "既に登録済みのメールアドレスです!"
       messages:
         record_invalid: "ActiveRecordエラー"
     attributes:
