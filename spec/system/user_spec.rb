@@ -92,7 +92,7 @@ RSpec.describe 'ログイン機能', type: :system do
       end
     end
     describe '管理画面' do
-      context '管理ユーザは管理画面にアクセスした場合' do
+      context '管理ユーザが管理画面にアクセスした場合' do
         it 'ユーザ一覧ページが表示される' do
           visit new_session_path
           admin_login
@@ -100,6 +100,14 @@ RSpec.describe 'ログイン機能', type: :system do
           # binding.irb
           expect(page).to have_content '管理画面'
           expect(current_path).to eq admin_users_path
+        end
+      end
+      context '一般ユーザが管理画面にアクセスした場合' do
+        it 'ユーザ一覧ページが表示される' do
+          visit new_session_path
+          user_login
+          visit admin_users_path
+          expect(page).to have_content '管理者以外はadminページにアクセス出来ません'
         end
       end
     end
