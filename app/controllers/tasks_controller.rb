@@ -68,8 +68,4 @@ class TasksController < ApplicationController
     params.require(:task).permit(:task_name, :details, :deadline, :status, :priority)
   end
 
-  # def restriction
-  #   redirect_to tasks_path unless @task.user.id == current_user.id
-  # end
-
 end
