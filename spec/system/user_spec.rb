@@ -59,7 +59,6 @@ RSpec.describe 'ログイン機能', type: :system do
         # admin_login
         # binding.irb
         expect(page).to have_content 'マイページ'
-
       end
     end
     context 'マイページに飛んだ場合' do
@@ -81,6 +80,18 @@ RSpec.describe 'ログイン機能', type: :system do
         # binding.irb
       end
     end
+    context 'ログアウトした場合' do
+      it 'ログインページが表示される' do
+        visit new_session_path
+        user_login
+        click_on 'Logout'
+        # visit session_path(user.id), method: :delete
+        expect(page).to have_content 'Log in'
+        # binding.irb
+        expect(current_path).to eq new_session_path 
+      end
+    end
+
   end
 
 end

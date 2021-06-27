@@ -33,6 +33,7 @@ class UsersController < ApplicationController
   def restriction
     # flash[:notice] = '他人の詳細ページには飛べません'
     if params[:id].to_i != current_user.id
+    # if @user.id != current_user.id
       # redirect_to tasks_path
       # flash[:notice] = '他人の詳細ページには飛べません'
       redirect_to tasks_path, notice: '他人の詳細ページには飛べません'
