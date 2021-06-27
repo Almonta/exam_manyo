@@ -91,6 +91,18 @@ RSpec.describe 'ログイン機能', type: :system do
         expect(current_path).to eq new_session_path 
       end
     end
+    describe '管理画面' do
+      context '管理ユーザは管理画面にアクセスした場合' do
+        it 'ユーザ一覧ページが表示される' do
+          visit new_session_path
+          admin_login
+          visit admin_users_path
+          # binding.irb
+          expect(page).to have_content '管理画面'
+          expect(current_path).to eq admin_users_path
+        end
+      end
+    end
 
   end
 
