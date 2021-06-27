@@ -134,6 +134,21 @@ RSpec.describe 'ログイン機能', type: :system do
           expect(current_path).to eq admin_user_path(user.id)
         end
       end
+      context '管理ユーザがユーザの編集画面からユーザを編集した場合' do
+        it "ユーザ一覧画面に編集後の情報が表示される" do
+          visit new_session_path
+          admin_login
+          click_link '管理者画面へ'
+          visit edit_admin_user_path(user.id)
+          fill_in 'user_name', with: 'change_name'
+          fill_in 'user_email', with: 'change_email1@sample.com'
+          fill_in 'user_password', with: 'change_password1'
+          # binding.irb
+          click_on '更新する'
+          expect(page).to have_content 'change_name'
+
+        end
+      end
     end
 
   end
