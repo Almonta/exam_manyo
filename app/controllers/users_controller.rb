@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tasks = current_user.tasks
     # binding.irb
+    redirect_to tasks_path unless @user.id == current_user.id
   end
 
   def new

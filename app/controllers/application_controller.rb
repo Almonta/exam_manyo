@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path unless current_user
   end
 
-  # def admin_login_required
-  #   redirect_to tasks_path, notice: "管理者以外はadminページにアクセス出来ません" unless current_user.admin
+
+  # def restriction
+  #   redirect_to tasks_path unless current_user
   # end
 end

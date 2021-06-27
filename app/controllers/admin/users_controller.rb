@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   #いや、これでいい。管理者以外は全てのアクションに入れない
-  # before_action :admin_login_required
+  before_action :admin_login_required
   # before_action :admin_login_required, only: %i[ index show edit update destroy ]
 
   def index

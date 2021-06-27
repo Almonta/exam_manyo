@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-  before_action :current_user, only: %i[ edit update destroy ]
+  # before_action :current_user, only: %i[ show edit update destroy ]
+  # before_action :restriction, only: [:show]
 
   def index
     @user = current_user
@@ -66,4 +67,9 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:task_name, :details, :deadline, :status, :priority)
   end
+
+  # def restriction
+  #   redirect_to tasks_path unless @task.user.id == current_user.id
+  # end
+
 end

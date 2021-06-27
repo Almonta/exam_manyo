@@ -1,18 +1,26 @@
 require 'rails_helper'
 RSpec.describe 'ログイン機能', type: :system do
   let!(:user) { FactoryBot.create(:user) }
+  let!(:second_user) { FactoryBot.create(:second_user) }
+  let!(:admin) { FactoryBot.create(:admin) }
   let!(:task) { FactoryBot.create(:task, user_id: user.id) }
   let!(:second_task) { FactoryBot.create(:second_task, user_id: user.id) }
   let!(:third_task) { FactoryBot.create(:third_task, user_id: user.id) }
   before do
     # visit new_session_path
   end
-  def test_login
+  
+  def user_login
     fill_in 'session_email', with: 'test_user1@sample.com'
     fill_in 'session_password', with: 'pass1'
     click_on 'Log in'
   end
 
+  def admin_login
+    fill_in 'session_email', with: 'test_user3@sample.com'
+    fill_in 'session_password', with: 'pass3'
+    click_on 'Log in'
+  end
 
   describe 'ユーザ登録' do
     context 'ユーザを新規作成した場合' do
@@ -43,4 +51,36 @@ RSpec.describe 'ログイン機能', type: :system do
       end
     end
   end
+  describe 'セッション機能' do
+    context 'ログインした場合' do
+      it 'タスク一覧ページが表示される' do
+        visit new_session_path
+        user_login
+        # admin_login
+        # binding.irb
+        expect(page).to have_content 'マイページ'
+
+      end
+    end
+    context 'マイページに飛んだ場合' do
+      it 'ユーザの名前が表示される' do
+        visit new_session_path
+        user_login
+        visit user_path(user.id)
+        # admin_login
+        # binding.irb
+        expect(page).to have_content 'test_user1@sample.com'
+      end
+    end
+    context '一般ユーザが他人の詳細画面に飛んだ場合' do
+      it 'タスク一覧画面に遷移する' do
+        visit new_session_path
+        user_login
+        visit user_path(second_user.id)
+        expect(page).to have_content 'Task一覧'
+        # binding.irb
+      end
+    end
+  end
+
 end
