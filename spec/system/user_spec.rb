@@ -143,14 +143,22 @@ RSpec.describe 'ログイン機能', type: :system do
           fill_in 'user_name', with: 'change_name'
           fill_in 'user_email', with: 'change_email1@sample.com'
           fill_in 'user_password', with: 'change_password1'
-          # binding.irb
           click_on '更新する'
           expect(page).to have_content 'change_name'
-
+        end
+      end
+      context '管理ユーザがユーザの削除をした場合' do
+        it "ユーザ一覧から削除される" do
+          visit new_session_path
+          admin_login
+          click_link '管理者画面へ'
+          # binding.irb
+          find(:xpath, '/html/body/table/tbody/tr[2]/td[5]/a/span').click
+          # click_on '削除'
+          expect(page).not_to have_content 'test_user1'
+          expect(page).to have_content '削除しました'
         end
       end
     end
-
   end
-
 end
