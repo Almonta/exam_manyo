@@ -18,8 +18,8 @@
   </tr>
   <% @users.each do |user| %>
   <tr>
-    <td class="task_row" ><%= user.name %></td>
-    <td class="task_quantity_row" ><%= user.tasks.count %></td>
+    <td class="name_row" ><%= user.name %></td>
+    <td class="task_count_row" ><%= user.tasks.count %></td>
 
     <td>
       <%= link_to admin_user_path(user.id) do %>

@@ -110,6 +110,21 @@ RSpec.describe 'ログイン機能', type: :system do
           expect(page).to have_content '管理者以外はadminページにアクセス出来ません'
         end
       end
+      context '管理ユーザがユーザの新規登録をした場合' do
+        it '登録ユーザ一覧画面に追加される' do
+          visit new_session_path
+          admin_login
+          visit new_admin_user_path
+          fill_in 'user_name', with: 'test_name1'
+          fill_in 'user_email', with: 'test_email1@sample.com'
+          fill_in 'user_password', with: 'test_password1'
+          fill_in 'user_password_confirmation', with: 'test_password1'
+          click_on '登録する'
+          expect(page).to have_content '新規ユーザを登録しました'
+          expect(page).to have_selector '.name_row', text: 'test_name1'
+        end
+      end
+
     end
 
   end
