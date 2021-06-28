@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'labels/index'
   # get 'sessions/new'
   # root to: '/'
   # resources :tasks do
@@ -13,5 +14,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
   end
+  resources :labels
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
