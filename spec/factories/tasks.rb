@@ -7,6 +7,11 @@ FactoryBot.define do
     deadline { '2021-06-22' }
     status { '完了' }
     priority { '高' }
+
+    after(:build) do |task|
+      label = create(:task)
+      task.label_links << build(:label_link, task: task, label: label)
+    end
   end
   
   factory :second_task, class: Task do
