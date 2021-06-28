@@ -25,8 +25,6 @@
   <div>
 <% end %>
 
-
-
 <h4>
   &nbsp;
   <%= link_to new_task_path do %>
@@ -40,8 +38,6 @@
   <span class="label label-success">ラベル登録</span>
   <% end %>
 </h4>
-
-
 
 <p><%#= link_to "終了期限でソートする",tasks_path(sort_expired: "true") %>
 
@@ -76,7 +72,7 @@
         <td><%= l task.created_at %></td>
         <td class="status_row" ><%= task.status %></td>
         <td class="priority_row" ><%= task.priority %></td>
-        <td>
+        <td class="label_row" >
           <% task.labels.each do |label| %>
             <i class="fas fa-tag" style="color:	#ff8c00"></i><%= label.name %>
           <% end %>
