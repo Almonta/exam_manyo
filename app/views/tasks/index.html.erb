@@ -18,9 +18,13 @@
 <% end %>
 
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
-  <%= form.submit 'Search', name: nil %>
+  <div class="search_label">
+    <%= form.label :status, 'ラベル' %>
+    <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+    <%= form.submit '検索', name: nil %>
+  <div>
 <% end %>
+
 
 
 <h4>
@@ -57,6 +61,7 @@
         <%= link_to tasks_path(sort_priority: "true") do %>
         <i class="fas fa-sort"></i>
       <% end %>
+      <th>ラベル</th>
       <th></th>
       <th></th>
       <th></th>
@@ -73,7 +78,7 @@
         <td class="priority_row" ><%= task.priority %></td>
         <td>
           <% task.labels.each do |label| %>
-            <%= label.name %>
+            <i class="fas fa-tag" style="color:	#ff8c00"></i><%= label.name %>
           <% end %>
         </td>
         <td>
