@@ -7,6 +7,8 @@
     <td>終了期限</td>
     <td>作成日</td>
     <td>ステータス</td>
+    <td>優先度</td>
+    <td>ラベル</td>
   </tr>
   
   <div>
@@ -17,8 +19,13 @@
       <td><%= l @task.created_at %></td>
       <td><%= @task.status %></td>
       <td><%= @task.priority %></td>
+      <td>
+        <% @task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+      </td>
     </tr>
-  </dev>
+  </div>
 </table>
 
 <p><%= link_to '一覧画面へ', tasks_path %></p>

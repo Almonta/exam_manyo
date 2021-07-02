@@ -50,6 +50,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_login_required
-    redirect_to tasks_path, notice: "管理者以外はadminページにアクセス出来ません" unless current_user.admin
+    redirect_to tasks_path, notice: "管理者以外はadminページにアクセス出来ません" unless current_user.admin?
   end
 end

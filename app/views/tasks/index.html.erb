@@ -17,11 +17,25 @@
   </div>
 <% end %>
 
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <div class="search_label">
+    <%= form.label :status, 'ラベル' %>
+    <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+    <%= form.submit '検索', name: nil %>
+  <div>
+<% end %>
 
 <h4>
   &nbsp;
   <%= link_to new_task_path do %>
   <span class="label label-primary">Task登録</span>
+  <% end %>
+</h4>
+
+<h4>
+  &nbsp;
+  <%= link_to labels_path do %>
+  <span class="label label-success">ラベル登録</span>
   <% end %>
 </h4>
 
@@ -43,6 +57,7 @@
         <%= link_to tasks_path(sort_priority: "true") do %>
         <i class="fas fa-sort"></i>
       <% end %>
+      <th>ラベル</th>
       <th></th>
       <th></th>
       <th></th>
@@ -57,6 +72,11 @@
         <td><%= l task.created_at %></td>
         <td class="status_row" ><%= task.status %></td>
         <td class="priority_row" ><%= task.priority %></td>
+        <td class="label_row" >
+          <% task.labels.each do |label| %>
+            <i class="fas fa-tag" style="color:	#ff8c00"></i><%= label.name %>
+          <% end %>
+        </td>
         <td>
           <%= link_to task_path(task.id) do %>
           <span class="label label-primary">詳細</span>

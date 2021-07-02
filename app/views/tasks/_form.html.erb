@@ -31,7 +31,14 @@
   <%= form.select :priority, Task.priorities.keys.to_a, {} %>
 </div>
 
-<p><%= form.submit %></p>
+<div class="tag">
+  <%= form.label :tag, 'ラベル' %><br>
+  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+</div>
+
+<div class="action">
+  <%= form.submit %>
+</div>
 
 <p><%= link_to "戻る", tasks_path %></p>
 
